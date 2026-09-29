@@ -1,0 +1,268 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Department>
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<h1>Departments</h1>
+
+<p>
+    <button type="button"
+            class="btn btn-primary"
+            onclick="openAddDepartmentModal()">
+        Add Department
+    </button>
+</p>
+
+<div class="department-table-container">
+
+    <table class="table table-bordered table-hover">
+
+        <thead>
+            <tr>
+				<th>Dpepartment ID</th>
+				<th>Deartment Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var department in Model)
+            {
+                <tr>
+                    <td>
+                        @department.DepartmentId
+                    </td>
+
+                    <td>
+                        @department.DepartmentName
+                    </td>
+
+                    <td>
+                        <button type="button"
+                                class="btn btn-sm btn-info"
+                                onclick="openDepartmentDetailsModal(@department.DepartmentId, '@department.DepartmentName')">
+                            Details
+                        </button>
+                        |
+                        <button type="button"
+                                class="btn btn-sm btn-warning"
+                                onclick="openEditDepartmentModal(@department.DepartmentId, '@department.DepartmentName')">
+                            Edit
+                        </button>
+                        |
+                        <button type="button"
+                                class="btn btn-sm btn-danger"
+                                onclick="openDeleteDepartmentModal(@department.DepartmentId, '@department.DepartmentName')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+<!-- Add Department Modal -->
+<div id="addDepartmentModal" class="department-modal">
+
+    <div class="department-modal-content">
+
+        <div class="department-modal-header">
+            <h2>Add Department</h2>
+
+            <button type="button"
+                    class="close-button"
+                    onclick="closeAddDepartmentModal()">
+                &times;
+            </button>
+        </div>
+
+        <div class="department-modal-body">
+
+            <label for="departmentName">
+                Department Name
+            </label>
+
+            <input type="text"
+                   id="departmentName"
+                   class="form-control"
+                   placeholder="Enter department name" />
+
+        </div>
+
+        <div class="department-modal-footer">
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="closeAddDepartmentModal()">
+                Cancel
+            </button>
+
+            <button type="button"
+                    class="btn btn-primary"
+                    onclick="addDepartment()">
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Edit Department Modal -->
+<div id="editDepartmentModal" class="department-modal">
+
+    <div class="department-modal-content">
+
+        <div class="department-modal-header">
+            <h2>Edit Departments</h2>
+
+            <button type="button"
+                    class="close-button"
+                    onclick="closeEditDepartmentModal()">
+                &times;
+            </button>
+        </div>
+
+        <div class="department-modal-body">
+
+            <input type="hidden" id="editDepartmentId" />
+
+            <label for="editDepartmentName">
+                Department Name
+            </label>
+
+            <input type="text"
+                   id="editDepartmentName"
+                   class="form-control" />
+
+        </div>
+
+        <div class="department-modal-footer">
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="closeEditDepartmentModal()">
+                Cancel
+            </button>
+
+            <button type="button"
+                    class="btn btn-primary"
+                    onclick="updateDepartment()">
+                Save Changes
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Department Details Modal -->
+<div id="departmentDetailsModal" class="department-modal">
+
+    <div class="department-modal-content">
+
+        <div class="department-modal-header">
+
+            <h2>Department Details</h2>
+
+            <button type="button"
+                    class="close-button"
+                    onclick="closeDepartmentDetailsModal()">
+                &times;
+            </button>
+
+        </div>
+
+        
+
+        <div class="department-modal-body">
+
+            <p>
+                <strong>Course ID:</strong>
+                <span id="detailsDepartmentId"></span>
+            </p>
+
+            <p>
+                <strong>Course Name:</strong>
+                <span id="detailsDepartmentName"></span>
+            </p>
+        </div>
+
+        <div class="department-modal-footer">
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="closeDepartmentDetailsModal()">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Delete Department Modal -->
+<div id="deleteDepartmentModal" class="department-modal">
+
+    <div class="department-modal-content">
+
+        <div class="department-modal-header">
+
+            <h2>Delete Department</h2>
+
+            <button type="button"
+                    class="close-button"
+                    onclick="closeDeleteDepartmentModal()">
+                &times;
+            </button>
+
+        </div>
+
+        <div class="department-modal-body">
+
+            <input type="hidden" id="deleteDepartmentId" />
+
+            <p>
+                Are you sure you want to delete
+                <strong id="deleteDepartmentName"></strong>
+            </p>
+
+        </div>
+
+        <div class="department-modal-footer">
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="closeDeleteDepartmentModal()">
+                Cancel
+            </button>
+
+            <button type="button"
+                    class="btn btn-danger"
+                    onclick="deleteDepartment()">
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

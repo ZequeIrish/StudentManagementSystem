@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="home-container">
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1>Student Management System</h1>
+
+        <p>
+            Welcome! Manage students, courses, and departments
+            in one place.
+        </p>
+    </div> 
+
+
+    <h2 class="section-title">System Overview</h2>
+
+
+    <!-- System Statistics -->
+    <div class="home-statistics">
+
+        <div class="stat-card">
+            <strong>Total Students</strong>
+            <span>@ViewBag.TotalStudents</span>
+        </div>
+
+        <div class="stat-card">
+            <strong>Total Courses</strong>
+            <span>@ViewBag.TotalCourses</span>
+        </div>
+
+        <div class="stat-card">
+            <strong>Total Departments</strong>
+            <span>@ViewBag.TotalDepartments</span>
+        </div>
+
+    </div>
+
+
+    <h2 class="section-title">Manage System</h2>
+
+
+    <!-- Navigation -->
+    <div class="home-navigation">
+
+        <a asp-controller="Students"
+           asp-action="Index"
+           class="home-card">
+
+            <h2>Students</h2>
+
+            <p>
+                Manage student information
+            </p>
+
+        </a>
+
+
+        <a asp-controller="Courses"
+           asp-action="Index"
+           class="home-card">
+
+            <h2>Courses</h2>
+
+            <p>
+                Manage available courses
+            </p>
+
+        </a>
+
+
+        <a asp-controller="Departments"
+           asp-action="Index"
+           class="home-card">
+
+            <h2>Departments</h2>
+
+            <p>
+                Manage departments
+            </p>
+
+        </a>
+
+    </div>
+
+</div>

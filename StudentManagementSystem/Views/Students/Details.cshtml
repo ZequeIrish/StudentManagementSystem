@@ -1,0 +1,75 @@
+@model StudentManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Course)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentId)
+        </dd>
+
+        <dt>
+            Department
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentName)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.StudentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
