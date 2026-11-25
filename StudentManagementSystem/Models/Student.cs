@@ -19,15 +19,18 @@ public partial class Student
     [Required(ErrorMessage = "First Name is required.")]
     [StringLength(50)]
     [RegularExpression(NamePattern, ErrorMessage = "First Name " + NameRuleMessage)]
+    [Display(Name = "First Name")]
     public string? FirstName { get; set; }
 
     [StringLength(50)]
     [RegularExpression(NamePattern, ErrorMessage = "Middle Name " + NameRuleMessage)]
+    [Display(Name = "Middle Name")]
     public string? MiddleName { get; set; }
 
     [Required(ErrorMessage = "Last Name is required.")]
     [StringLength(50)]
     [RegularExpression(NamePattern, ErrorMessage = "Last Name " + NameRuleMessage)]
+    [Display(Name = "Last Name")]
     public string? LastName { get; set; }
 
     [Required(ErrorMessage = "Age is required.")]
@@ -42,6 +45,7 @@ public partial class Student
     [StringLength(50)]
     public string? Address { get; set; }
 
+    [Display(Name = "Department ID")]
     public int? DepartmentId { get; set; }
 
     public virtual Department? Department { get; set; }

@@ -328,6 +328,70 @@ body.sms-public {
     --bs-btn-hover-border-color: var(--sms-gray-dark);
 }
 
+/* ---------- Add / Edit Student form: two columns ---------- */
+
+.sms-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+}
+
+    /* the error summary and the Save/Create button use the full width */
+    .sms-form-grid > .validation-summary-errors,
+    .sms-form-grid > .validation-summary-valid,
+    .sms-form-grid > div:has(input[type="submit"]) {
+        grid-column: 1 / -1;
+    }
+
+/* ---------- Dashboard: fit on the screen ---------- */
+
+.sms-content .home-container {
+    min-height: 0;
+    padding: 0;
+}
+
+.sms-content .section-title {
+    font-size: 1.4rem;
+    margin-top: 8px;
+}
+
+.sms-content .home-statistics {
+    margin-bottom: 16px;
+}
+
+.sms-content .home-card {
+    min-height: 0;
+    padding: 20px;
+}
+
+/* ---------- Big screens: every page fits the window ----------
+   The white content card fills the space between the top bar and the footer.
+   Tables fill what is left in the card and scroll inside it when long,
+   so the page itself does not need to scroll. */
+
+@media (min-width: 768px) {
+    .sms-content {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .sms-content > * {
+            flex-shrink: 0;
+        }
+
+        .sms-content .student-table-container,
+        .sms-content .course-table-container,
+        .sms-content .department-table-container {
+            flex: 1 1 auto;
+            min-height: 160px;
+            height: auto;
+            max-height: none;
+            overflow-y: auto;
+        }
+}
+
 /* ---------- Phones and small screens ---------- */
 
 @media (max-width: 767.98px) {
@@ -374,5 +438,9 @@ body.sms-public {
 
     .sms-content {
         padding: 16px;
+    }
+
+    .sms-form-grid {
+        grid-template-columns: 1fr;
     }
 }
