@@ -17,24 +17,25 @@
         : "";
 }
 
-<h1>Students</h1>
+<!-- title + average age on the left, main buttons on the right -->
+<div class="sms-page-header">
 
-<div class="summary-cards">
-
-    <div class="summary-card">
-        <strong>Average Age</strong>
-        <span>@ViewBag.AverageAge</span>
+    <div class="sms-page-title">
+        <h1>Students</h1>
+        <span class="sms-stat-pill">Average Age: <strong>@ViewBag.AverageAge</strong></span>
     </div>
 
-</div>
+    <div class="sms-page-buttons">
+        <button type="button"
+                class="btn btn-outline-secondary"
+                onclick="openDepartmentSummary()">
+            <i class="bi bi-bar-chart"></i> Department Summary
+        </button>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Add Student
+        </a>
+    </div>
 
-<!-- button for viewing department summary -->
-<div class="mb-3">
-    <button type="button"
-            class="btn btn-primary"
-            onclick="openDepartmentSummary()">
-        View Department Summary
-    </button>
 </div>
 
 <!-- search + sort -->
@@ -73,12 +74,6 @@
     </div>
 
 </div>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">
-        Add Students
-    </a>
-</p>
 
 <div class="student-table-container">
     <table class="table table-bordered table-hover">
@@ -127,7 +122,9 @@
                     Department@(SortArrow("department"))
                 </a>
             </th>
-           
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -157,29 +154,25 @@
             <td>
                     @Html.DisplayFor(modelItem => item.Department.DepartmentName)
             </td>
-                    <td>
-                        <a asp-action="Edit"
-                           asp-route-id="@item.StudentId"
-                           class="btn btn-sm btn-warning">
-                            Edit
-                        </a>
-
-                        |
-
-                        <a asp-action="Details"
-                           asp-route-id="@item.StudentId"
-                           class="btn btn-sm btn-info">
-                            Details
-                        </a>
-
-                        |
-
-                        <a asp-action="Delete"
-                           asp-route-id="@item.StudentId"
-                           class="btn btn-sm btn-danger">
-                            Delete
-                        </a>
-                    </td>
+            <td>
+                <div class="sms-actions">
+                    <a asp-action="Edit"
+                       asp-route-id="@item.StudentId"
+                       class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+                    <a asp-action="Details"
+                       asp-route-id="@item.StudentId"
+                       class="btn btn-sm btn-info">
+                        Details
+                    </a>
+                    <a asp-action="Delete"
+                       asp-route-id="@item.StudentId"
+                       class="btn btn-sm btn-danger">
+                        Delete
+                    </a>
+                </div>
+            </td>
         </tr>
         }
         

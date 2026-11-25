@@ -328,6 +328,52 @@ body.sms-public {
     --bs-btn-hover-border-color: var(--sms-gray-dark);
 }
 
+/* ---------- Page header: title on the left, buttons on the right ---------- */
+
+.sms-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.sms-page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .sms-page-title h1 {
+        margin: 0;
+    }
+
+.sms-stat-pill {
+    background-color: var(--sms-page-bg);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.9rem;
+    color: var(--sms-muted);
+}
+
+    .sms-stat-pill strong {
+        color: var(--sms-text);
+    }
+
+.sms-page-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Edit / Details / Delete side by side, never wrapped */
+.sms-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+}
+
 /* ---------- Add / Edit Student form: two columns ---------- */
 
 .sms-form-grid {
