@@ -79,8 +79,6 @@ public class StudentsController : Controller
 
             ViewBag.DepartmentSummary = departmentSummary;
 
-
-       
         // Average Age (null when there are no students)
         double? averageAge = await _context.Students
             .AverageAsync(s => (double?)s.Age);
@@ -162,8 +160,7 @@ public class StudentsController : Controller
         ViewBag.Courses = await _context.Courses.ToListAsync();
 
         return View(student);
-    
-}
+    }
 
     // GET: STUDENTS/Edit/5
     public async Task<IActionResult> Edit(int? id)

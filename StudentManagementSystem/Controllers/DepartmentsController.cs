@@ -25,8 +25,10 @@ namespace StudentManagementSystem.Controllers
         {
             if (string.IsNullOrWhiteSpace(department.DepartmentName))
             {
-                return BadRequest("Course name is required.");
+                return BadRequest("Department name is required.");
             }
+
+            department.DepartmentName = department.DepartmentName.Trim();
 
             _context.Departments.Add(department);
             await _context.SaveChangesAsync();

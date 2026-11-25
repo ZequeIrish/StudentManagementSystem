@@ -157,23 +157,6 @@ function closeCourseDetailsModal() {
 
     document.getElementById("courseDetailsModal").style.display =
         "none";
-} function openCourseDetailsModal(courseId, courseName) {
-
-    document.getElementById("detailsCourseId").innerText =
-        courseId;
-
-    document.getElementById("detailsCourseName").innerText =
-        courseName;
-
-    document.getElementById("courseDetailsModal").style.display =
-        "block";
-}
-
-
-function closeCourseDetailsModal() {
-
-    document.getElementById("courseDetailsModal").style.display =
-        "none";
 }
 
 
@@ -409,12 +392,10 @@ async function deleteDepartment() {
         const response = await fetch(
             `/Departments/DeleteDepartment/${departmentId}`,
             {
-
                 method: "POST",
                 headers: {
                     "RequestVerificationToken": getAntiForgeryToken()
                 }
-
             }
         );
 

@@ -22,7 +22,6 @@ public partial class StudentManagementDbContext : DbContext
     public virtual DbSet<Student> Students { get; set; }
 
     public virtual DbSet<Admin> Admins { get; set; }
-    public object Department { get; internal set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
