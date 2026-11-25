@@ -22,6 +22,30 @@ A web-based student management system built with ASP.NET Core MVC, created as a 
 - Manage courses and departments
 - Relational data linking students, courses, and departments through Entity Framework Core
 
+## Screenshots
+
+_The screenshots use sample data only._
+
+**Dashboard:** totals, quick "Add" buttons, and the most recently added students
+
+![Dashboard](screenshots/dashboard.png)
+
+**Students:** search, sort by last name, and Edit / Details / Delete for each student
+
+![Students list](screenshots/students.png)
+
+**Edit Student:** two-column form with validation
+
+![Edit Student form](screenshots/edit-student.png)
+
+**Courses:** add, edit, view, and delete in popups
+
+![Courses with the Add Course popup](screenshots/courses.png)
+
+**Log in:** only admins can use the system
+
+![Log in page](screenshots/login.png)
+
 ## How to Run
 
 **You need:** the [.NET 9 SDK](https://dotnet.microsoft.com/download) and one of these (both free):
@@ -113,7 +137,6 @@ StudentManagementSystem
 
 ## What's Planned
 
-- [ ] Screenshots of the main pages in this README
 - [ ] Lock an account for a short time after many wrong passwords
 - [ ] Link students to courses by ID (like departments), instead of by course name
 - [ ] Demo mode with sample data, for an online demo
