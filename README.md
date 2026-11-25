@@ -22,6 +22,31 @@ A web-based student management system built with ASP.NET Core MVC, created as a 
 - Manage courses and departments
 - Relational data linking students, courses, and departments through Entity Framework Core
 
+## How to Run
+
+**You need:** the [.NET 9 SDK](https://dotnet.microsoft.com/download) and one of these (both free):
+- **SQL Server Express**, or
+- **SQL Server LocalDB**, which is already installed if you have Visual Studio with the "ASP.NET and web development" workload.
+
+1. Download or clone this repository.
+2. Open `StudentManagementSystem/appsettings.json` and set the `Server=` part of `DefaultConnection` to match your SQL Server:
+
+   | You have | Use |
+   |---|---|
+   | SQL Server Express | `Server=.\\SQLEXPRESS;` (already set) |
+   | LocalDB (Visual Studio) | `Server=(localdb)\\MSSQLLocalDB;` |
+
+3. Run the app, from Visual Studio (press **F5**) or from a terminal in the `StudentManagementSystem` folder:
+   ```
+   dotnet run --launch-profile https
+   ```
+4. Open `https://localhost:7294`.
+5. **First run only:** the app asks you to **create the first admin account**. Choose any username and a password (at least 8 characters), and you're logged in. This page closes itself once an admin exists. Your account is only on your own computer.
+
+On the first run, the app also **creates the `StudentManagementDB` database and its tables by itself**. If the database already exists with tables, nothing is changed.
+
+**Tip:** start by adding a few departments and courses, then add students.
+
 ## Project Structure
 
 ```

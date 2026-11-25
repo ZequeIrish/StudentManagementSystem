@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Models;
@@ -34,6 +35,7 @@ namespace StudentManagementSystem.Controllers
             return View();
         }
 
+        [AllowAnonymous]   // the error page must work even when not logged in
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,0 +1,53 @@
+@model IEnumerable<StudentManagementSystem.Models.Admin>
+
+@{
+    ViewData["Title"] = "Admins";
+    int? currentAdminId = ViewBag.CurrentAdminId;
+}
+
+<h1>Admins</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Admin</a>
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var admin in Model)
+        {
+            <tr>
+                <td>
+                    @admin.Username
+                    @if (admin.AdminId == currentAdminId)
+                    {
+                        <span class="badge bg-secondary ms-1">you</span>
+                    }
+                </td>
+                <td>
+                    @if (admin.AdminId != currentAdminId)
+                    {
+                        <form asp-action="Delete" asp-route-id="@admin.AdminId" method="post" class="d-inline"
+                              onsubmit="return confirm('Delete this admin? They will not be able to log in anymore.');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

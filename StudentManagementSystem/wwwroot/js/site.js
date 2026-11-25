@@ -109,7 +109,7 @@ async function updateCourse() {
             },
 
             body: JSON.stringify({
-               CourseId: parseInt(courseId),
+                CourseId: parseInt(courseId),
                 CourseName: courseName
             })
         });
@@ -214,7 +214,8 @@ async function deleteCourse() {
         );
 
         if (!response.ok) {
-            alert("Failed to delete course.");
+            const message = await response.text();
+            alert(message || "Failed to delete course.");
             return;
         }
 
@@ -408,17 +409,18 @@ async function deleteDepartment() {
         const response = await fetch(
             `/Departments/DeleteDepartment/${departmentId}`,
             {
-               
+
                 method: "POST",
                 headers: {
                     "RequestVerificationToken": getAntiForgeryToken()
                 }
-              
+
             }
         );
 
         if (!response.ok) {
-            alert("Failed to delete department.");
+            const message = await response.text();
+            alert(message || "Failed to delete department.");
             return;
         }
 

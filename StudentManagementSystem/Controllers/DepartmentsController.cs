@@ -83,6 +83,17 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
 
+            // Don't delete a department that still has students.
+            var studentCount = await _context.Students
+                .CountAsync(s => s.DepartmentId == id);
+
+            if (studentCount > 0)
+            {
+                return BadRequest(
+                    $"Cannot delete \"{department.DepartmentName}\": {studentCount} student(s) are still in this department. " +
+                    "Move them to another department first.");
+            }
+
             _context.Departments.Remove(department);
 
             await _context.SaveChangesAsync();

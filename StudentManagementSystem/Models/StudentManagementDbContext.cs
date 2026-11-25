@@ -20,6 +20,8 @@ public partial class StudentManagementDbContext : DbContext
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Student> Students { get; set; }
+
+    public virtual DbSet<Admin> Admins { get; set; }
     public object Department { get; internal set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,6 +50,12 @@ public partial class StudentManagementDbContext : DbContext
             entity.HasOne(d => d.Department).WithMany(p => p.Students)
                 .HasForeignKey(d => d.DepartmentId)
                 .HasConstraintName("FK_Students_Departments");
+        });
+
+        modelBuilder.Entity<Admin>(entity =>
+        {
+            entity.Property(e => e.Username).HasMaxLength(50);
+            entity.HasIndex(e => e.Username).IsUnique();   // no two admins with the same username
         });
 
         OnModelCreatingPartial(modelBuilder);
