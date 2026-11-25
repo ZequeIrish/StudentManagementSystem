@@ -28,6 +28,13 @@ namespace StudentManagementSystem.Controllers
                 return BadRequest("Course name is required.");
             }
 
+            course.CourseName = course.CourseName.Trim();
+
+            if (await CourseNameIsTaken(course.CourseName))
+            {
+                return BadRequest($"A course named \"{course.CourseName}\" already exists.");
+            }
+
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
 
@@ -58,6 +65,12 @@ namespace StudentManagementSystem.Controllers
             }
 
             var newCourseName = course.CourseName.Trim();
+
+            // Another course (not this one) already has this name?
+            if (await CourseNameIsTaken(newCourseName, exceptCourseId: id))
+            {
+                return BadRequest($"A course named \"{newCourseName}\" already exists.");
+            }
 
             // Students save the course NAME (not its ID), so rename it on their records too.
             var studentsInCourse = await _context.Students
@@ -104,6 +117,18 @@ namespace StudentManagementSystem.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        // True if a course already uses this name.
+        // Capital letters and extra spaces are ignored, so "BSIT" and " bsit " count as the same.
+        // When editing, pass the course's own ID so it does not count itself.
+        private Task<bool> CourseNameIsTaken(string name, int? exceptCourseId = null)
+        {
+            var lowerName = name.Trim().ToLower();
+
+            return _context.Courses.AnyAsync(c =>
+                c.CourseName.Trim().ToLower() == lowerName &&
+                c.CourseId != exceptCourseId);
         }
     }
 }

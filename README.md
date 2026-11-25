@@ -98,6 +98,7 @@ StudentManagementSystem
 - [x] Search and sorting of students
 - [x] Input validation with clear error messages (names accept accents, apostrophes and hyphens, like Peña or O'Brien)
 - [x] Data safety: courses and departments that still have students can't be deleted, and renaming a course updates its students
+- [x] No duplicate course or department names (capital letters and extra spaces are ignored)
 - [x] Admin login and logout, with first-time admin setup
 - [x] Admin management: add and remove admin accounts
 - [x] Passwords stored as one-way hashes, never as plain text
@@ -111,7 +112,6 @@ StudentManagementSystem
 ## What's Planned
 
 - [ ] Screenshots of the main pages in this README
-- [ ] Prevent duplicate course and department names
 - [ ] Change password for admins
 - [ ] Lock an account for a short time after many wrong passwords
 - [ ] Link students to courses by ID (like departments), instead of by course name

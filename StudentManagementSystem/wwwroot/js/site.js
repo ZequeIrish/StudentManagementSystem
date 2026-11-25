@@ -50,7 +50,8 @@ async function addCourse() {
         });
 
         if (!response.ok) {
-            alert("Failed to add course.");
+            const message = await response.text();
+            alert(message || "Failed to add course.");
             return;
         }
 
@@ -120,7 +121,7 @@ async function updateCourse() {
 
             console.error("Server error:", errorMessage);
 
-            alert("Failed to update course.");
+            alert(errorMessage || "Failed to update course.");
 
             return;
         }
@@ -255,7 +256,8 @@ async function addDepartment() {
         });
 
         if (!response.ok) {
-            alert("Failed to add department.");
+            const message = await response.text();
+            alert(message || "Failed to add department.");
             return;
         }
 
@@ -323,7 +325,7 @@ async function updateDepartment() {
 
             console.error(error);
 
-            alert("Failed to update department.");
+            alert(error || "Failed to update department.");
 
             return;
         }

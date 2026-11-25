@@ -30,6 +30,11 @@ namespace StudentManagementSystem.Controllers
 
             department.DepartmentName = department.DepartmentName.Trim();
 
+            if (await DepartmentNameIsTaken(department.DepartmentName))
+            {
+                return BadRequest($"A department named \"{department.DepartmentName}\" already exists.");
+            }
+
             _context.Departments.Add(department);
             await _context.SaveChangesAsync();
 
@@ -66,8 +71,15 @@ namespace StudentManagementSystem.Controllers
                 return NotFound("Department not found.");
             }
 
-            existingDepartment.DepartmentName =
-                department.DepartmentName.Trim();
+            var newDepartmentName = department.DepartmentName.Trim();
+
+            // Another department (not this one) already has this name?
+            if (await DepartmentNameIsTaken(newDepartmentName, exceptDepartmentId: id))
+            {
+                return BadRequest($"A department named \"{newDepartmentName}\" already exists.");
+            }
+
+            existingDepartment.DepartmentName = newDepartmentName;
 
             await _context.SaveChangesAsync();
 
@@ -103,6 +115,16 @@ namespace StudentManagementSystem.Controllers
             return Ok();
         }
 
+        // True if a department already uses this name.
+        // Capital letters and extra spaces are ignored.
+        // When editing, pass the department's own ID so it does not count itself.
+        private Task<bool> DepartmentNameIsTaken(string name, int? exceptDepartmentId = null)
+        {
+            var lowerName = name.Trim().ToLower();
 
+            return _context.Departments.AnyAsync(d =>
+                d.DepartmentName.Trim().ToLower() == lowerName &&
+                d.DepartmentId != exceptDepartmentId);
+        }
     }
 }
