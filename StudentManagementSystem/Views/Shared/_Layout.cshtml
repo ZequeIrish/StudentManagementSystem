@@ -48,7 +48,7 @@
                     <a class="sms-nav-link @ActiveFor("Departments")" asp-controller="Departments" asp-action="Index">
                         <i class="bi bi-building"></i> Departments
                     </a>
-                    <a class="sms-nav-link @ActiveFor("Admins")" asp-controller="Admins" asp-action="Index">
+                    <a class="sms-nav-link @(currentAction != "ChangePassword" ? ActiveFor("Admins") : "")" asp-controller="Admins" asp-action="Index">
                         <i class="bi bi-shield-lock"></i> Admins
                     </a>
                 </nav>
@@ -56,6 +56,9 @@
                 <div class="sms-sidebar-bottom">
                     <a class="sms-nav-link @ActiveFor("Home", "Privacy")" asp-controller="Home" asp-action="Privacy">
                         <i class="bi bi-info-circle"></i> Privacy
+                    </a>
+                    <a class="sms-nav-link @ActiveFor("Admins", "ChangePassword")" asp-controller="Admins" asp-action="ChangePassword">
+                        <i class="bi bi-key"></i> Change Password
                     </a>
                     <form asp-controller="Account" asp-action="Logout" method="post">
                         <button type="submit" class="sms-nav-link sms-logout">

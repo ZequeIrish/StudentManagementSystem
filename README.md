@@ -58,7 +58,7 @@ StudentManagementSystem
 │   ├── CoursesController.cs        Courses: add, edit, delete
 │   ├── DepartmentsController.cs    Departments: add, edit, delete
 │   ├── AccountController.cs        Log in, log out, first-admin setup
-│   └── AdminsController.cs         Add and remove admin accounts
+│   └── AdminsController.cs         Add and remove admins, change your password
 │
 ├── Models
 │   ├── Student.cs
@@ -69,7 +69,8 @@ StudentManagementSystem
 │
 ├── ViewModels
 │   ├── LoginViewModel.cs           Login form fields and rules
-│   └── SetupViewModel.cs           New-admin form fields and rules
+│   ├── SetupViewModel.cs           New-admin form fields and rules
+│   └── ChangePasswordViewModel.cs  Change Password form fields and rules
 │
 ├── Views
 │   ├── Home                        Dashboard
@@ -77,7 +78,7 @@ StudentManagementSystem
 │   ├── Courses                     List with popups
 │   ├── Departments                 List with popups
 │   ├── Account                     Login and Setup pages
-│   ├── Admins                      Admin list and Add Admin page
+│   ├── Admins                      Admin list, Add Admin, Change Password pages
 │   └── Shared/_Layout.cshtml       Sidebar, welcome bar, page frame
 │
 ├── wwwroot
@@ -101,6 +102,7 @@ StudentManagementSystem
 - [x] No duplicate course or department names (capital letters and extra spaces are ignored)
 - [x] Admin login and logout, with first-time admin setup
 - [x] Admin management: add and remove admin accounts
+- [x] Change password: admins can change their own password (current password required)
 - [x] Passwords stored as one-way hashes, never as plain text
 - [x] Protection against forged requests (anti-forgery tokens) and against code hidden in names or addresses (XSS)
 - [x] Visual design: black sidebar menu, red accent theme, and a welcome bar on every page
@@ -112,7 +114,6 @@ StudentManagementSystem
 ## What's Planned
 
 - [ ] Screenshots of the main pages in this README
-- [ ] Change password for admins
 - [ ] Lock an account for a short time after many wrong passwords
 - [ ] Link students to courses by ID (like departments), instead of by course name
 - [ ] Demo mode with sample data, for an online demo

@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -87,6 +89,52 @@ namespace StudentManagementSystem.Controllers
 
             TempData["Message"] = $"Admin \"{admin.Username}\" was deleted.";
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: /Admins/ChangePassword
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        // POST: /Admins/ChangePassword
+        // The logged-in admin changes their OWN password.
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var admin = await _context.Admins.FindAsync(GetCurrentAdminId());
+
+            if (admin == null)
+            {
+                // This account was deleted while logged in: send them to log in again.
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Login", "Account");
+            }
+
+            // The current password must be right before anything changes.
+            var check = _passwordHasher.VerifyHashedPassword(admin, admin.PasswordHash, model.CurrentPassword);
+            if (check == PasswordVerificationResult.Failed)
+            {
+                ModelState.AddModelError(nameof(model.CurrentPassword), "Current password is not correct.");
+                return View(model);
+            }
+
+            if (model.NewPassword == model.CurrentPassword)
+            {
+                ModelState.AddModelError(nameof(model.NewPassword), "The new password must be different from the current one.");
+                return View(model);
+            }
+
+            admin.PasswordHash = _passwordHasher.HashPassword(admin, model.NewPassword);
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "Your password was changed.";
+            return RedirectToAction(nameof(ChangePassword));
         }
 
         // Reads the logged-in admin's ID from the login cookie (saved there by AccountController).
