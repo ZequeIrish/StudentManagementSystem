@@ -78,18 +78,26 @@ StudentManagementSystem
 
 ## What's Done
 
-- [ ] Fill this in as you complete each part, e.g.:
-- [x] Project structure and database setup
-- [x] Student CRUD operations
-- [x] Course and Department CRUD operations
-- [x] Input validation and error handling
-- [x] Search and filtering
-- [ ] Basic authentication
+- [x] Project structure and database setup (the database and tables are created automatically on first run)
+- [x] Student records: add, view, edit, delete
+- [x] Course and department records: add, view, edit, delete
+- [x] Department summary with a student count, and a list of students per department
+- [x] Search and sorting of students
+- [x] Input validation with clear error messages (names accept accents, apostrophes and hyphens, like Peña or O'Brien)
+- [x] Data safety: courses and departments that still have students can't be deleted, and renaming a course updates its students
+- [x] Admin login and logout, with first-time admin setup
+- [x] Admin management: add and remove admin accounts
+- [x] Passwords stored as one-way hashes, never as plain text
+- [x] Protection against forged requests (anti-forgery tokens) and against code hidden in names or addresses (XSS)
 
 ## What's Planned
 
-- [ ] Fill this in with what's left, e.g.:
-- [ ] - [ ] Visual design and styling (CSS, layout, overall UI polish)
+- [ ] Visual design and styling (CSS, layout, overall UI polish)
+- [ ] Screenshots of the main pages in this README
+- [ ] Change password for admins
+- [ ] Lock an account for a short time after many wrong passwords
+- [ ] Link students to courses by ID (like departments), instead of by course name
+- [ ] Demo mode with sample data, for an online demo
 
 ## Why I Built This
 
