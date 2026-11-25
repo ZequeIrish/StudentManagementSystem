@@ -4,19 +4,21 @@
     ViewData["Title"] = "Courses";
 }
 
-<h1>Courses</h1>
+<!-- title on the left, Add button on the right -->
+<div class="sms-page-header">
+    <div class="sms-page-title">
+        <h1>Courses</h1>
+    </div>
+    <div class="sms-page-buttons">
+        <button type="button"
+                class="btn btn-primary"
+                onclick="openAddCourseModal()">
+            <i class="bi bi-plus-lg"></i> Add Course
+        </button>
+    </div>
+</div>
 
-<p>
-    <button type="button"
-            class="btn btn-primary"
-            onclick="openAddCourseModal()">
-        Add Course
-    </button>
-
-</p>
-   
-
-    <!--Table-->
+<!--Table-->
 <div class="course-table-container">
 <table class="table table-bordered table-hover">
 
@@ -50,33 +52,29 @@
                 </td>
 
                 <td>
-                    <button type="button"
-                            class="btn btn-sm btn-warning"
-                            data-course-id="@course.CourseId"
-                            data-course-name="@course.CourseName"
-                            onclick="openEditCourseModal(this.dataset.courseId, this.dataset.courseName)">
-                        Edit
-                    </button>
-
-                    |
-
-                    <button type="button"
-                            class="btn btn-sm btn-info"
-                            data-course-id="@course.CourseId"
-                            data-course-name="@course.CourseName"
-                            onclick="openCourseDetailsModal(this.dataset.courseId, this.dataset.courseName)">
-                        Details
-                    </button>
-
-                    |
-
-                    <button type="button"
-                            class="btn btn-sm btn-danger"
-                            data-course-id="@course.CourseId"
-                            data-course-name="@course.CourseName"
-                            onclick="openDeleteCourseModal(this.dataset.courseId, this.dataset.courseName)">
-                        Delete
-                    </button>
+                    <div class="sms-actions">
+                        <button type="button"
+                                class="btn btn-sm btn-warning"
+                                data-course-id="@course.CourseId"
+                                data-course-name="@course.CourseName"
+                                onclick="openEditCourseModal(this.dataset.courseId, this.dataset.courseName)">
+                            Edit
+                        </button>
+                        <button type="button"
+                                class="btn btn-sm btn-info"
+                                data-course-id="@course.CourseId"
+                                data-course-name="@course.CourseName"
+                                onclick="openCourseDetailsModal(this.dataset.courseId, this.dataset.courseName)">
+                            Details
+                        </button>
+                        <button type="button"
+                                class="btn btn-sm btn-danger"
+                                data-course-id="@course.CourseId"
+                                data-course-name="@course.CourseName"
+                                onclick="openDeleteCourseModal(this.dataset.courseId, this.dataset.courseName)">
+                            Delete
+                        </button>
+                    </div>
                 </td>
             </tr>
         }

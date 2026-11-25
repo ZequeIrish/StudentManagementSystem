@@ -4,15 +4,19 @@
     ViewData["Title"] = "Departments";
 }
 
-<h1>Departments</h1>
-
-<p>
-    <button type="button"
-            class="btn btn-primary"
-            onclick="openAddDepartmentModal()">
-        Add Department
-    </button>
-</p>
+<!-- title on the left, Add button on the right -->
+<div class="sms-page-header">
+    <div class="sms-page-title">
+        <h1>Departments</h1>
+    </div>
+    <div class="sms-page-buttons">
+        <button type="button"
+                class="btn btn-primary"
+                onclick="openAddDepartmentModal()">
+            <i class="bi bi-plus-lg"></i> Add Department
+        </button>
+    </div>
+</div>
 
 <div class="department-table-container">
 
@@ -40,29 +44,29 @@
                     </td>
 
                     <td>
-                        <button type="button"
-                                class="btn btn-sm btn-info"
-                                data-department-id="@department.DepartmentId"
-                                data-department-name="@department.DepartmentName"
-                                onclick="openDepartmentDetailsModal(this.dataset.departmentId, this.dataset.departmentName)">
-                            Details
-                        </button>
-                        |
-                        <button type="button"
-                                class="btn btn-sm btn-warning"
-                                data-department-id="@department.DepartmentId"
-                                data-department-name="@department.DepartmentName"
-                                onclick="openEditDepartmentModal(this.dataset.departmentId, this.dataset.departmentName)">
-                            Edit
-                        </button>
-                        |
-                        <button type="button"
-                                class="btn btn-sm btn-danger"
-                                data-department-id="@department.DepartmentId"
-                                data-department-name="@department.DepartmentName"
-                                onclick="openDeleteDepartmentModal(this.dataset.departmentId, this.dataset.departmentName)">
-                            Delete
-                        </button>
+                        <div class="sms-actions">
+                            <button type="button"
+                                    class="btn btn-sm btn-warning"
+                                    data-department-id="@department.DepartmentId"
+                                    data-department-name="@department.DepartmentName"
+                                    onclick="openEditDepartmentModal(this.dataset.departmentId, this.dataset.departmentName)">
+                                Edit
+                            </button>
+                            <button type="button"
+                                    class="btn btn-sm btn-info"
+                                    data-department-id="@department.DepartmentId"
+                                    data-department-name="@department.DepartmentName"
+                                    onclick="openDepartmentDetailsModal(this.dataset.departmentId, this.dataset.departmentName)">
+                                Details
+                            </button>
+                            <button type="button"
+                                    class="btn btn-sm btn-danger"
+                                    data-department-id="@department.DepartmentId"
+                                    data-department-name="@department.DepartmentName"
+                                    onclick="openDeleteDepartmentModal(this.dataset.departmentId, this.dataset.departmentName)">
+                                Delete
+                            </button>
+                        </div>
                     </td>
                 </tr>
             }
