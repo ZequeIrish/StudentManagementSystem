@@ -53,27 +53,40 @@ On the first run, the app also **creates the `StudentManagementDB` database and 
 StudentManagementSystem
 │
 ├── Controllers
-│   ├── HomeController.cs
-│   ├── StudentsController.cs
-│   ├── CoursesController.cs
-│   └── DepartmentsController.cs
+│   ├── HomeController.cs           Dashboard (totals, recent students)
+│   ├── StudentsController.cs       Students: list, search, sort, add, edit, delete
+│   ├── CoursesController.cs        Courses: add, edit, delete
+│   ├── DepartmentsController.cs    Departments: add, edit, delete
+│   ├── AccountController.cs        Log in, log out, first-admin setup
+│   └── AdminsController.cs         Add and remove admin accounts
 │
 ├── Models
 │   ├── Student.cs
 │   ├── Course.cs
-│   └── Department.cs
+│   ├── Department.cs
+│   ├── Admin.cs                    Admin account (username + password hash)
+│   └── StudentManagementDbContext.cs   Database tables (Entity Framework Core)
+│
+├── ViewModels
+│   ├── LoginViewModel.cs           Login form fields and rules
+│   └── SetupViewModel.cs           New-admin form fields and rules
 │
 ├── Views
-│   ├── Home
-│   ├── Students
-│   ├── Courses
-│   └── Departments
+│   ├── Home                        Dashboard
+│   ├── Students                    List, Add, Edit, Details, Delete pages
+│   ├── Courses                     List with popups
+│   ├── Departments                 List with popups
+│   ├── Account                     Login and Setup pages
+│   ├── Admins                      Admin list and Add Admin page
+│   └── Shared/_Layout.cshtml       Sidebar, welcome bar, page frame
 │
 ├── wwwroot
-│   ├── css
-│   └── js
+│   ├── css/site.css                Base styles
+│   ├── css/theme.css               Theme colors, layout, buttons, popups
+│   └── js/site.js                  Course and department popups
 │
-└── appsettings.json
+├── Program.cs                      App setup: login, security, database creation
+└── appsettings.json                Database connection setting
 ```
 
 ## What's Done
