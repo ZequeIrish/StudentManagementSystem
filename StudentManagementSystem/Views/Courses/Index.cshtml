@@ -281,3 +281,13 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script>
+        // Came from the Dashboard "Add Course" button (address ends with ?add=true):
+        // open the Add popup right away.
+        if (new URLSearchParams(window.location.search).get("add") === "true") {
+            openAddCourseModal();
+        }
+    </script>
+}

@@ -27,6 +27,15 @@ namespace StudentManagementSystem.Controllers
 
             ViewBag.TotalDepartments = await _context.Departments.CountAsync();
 
+            ViewBag.TotalAdmins = await _context.Admins.CountAsync();
+
+            // The 5 newest students (a higher StudentId means added later).
+            ViewBag.RecentStudents = await _context.Students
+                .Include(s => s.Department)
+                .OrderByDescending(s => s.StudentId)
+                .Take(5)
+                .ToListAsync();
+
             return View();
         }
 

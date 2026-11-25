@@ -277,3 +277,14 @@
 
 </div>
 
+
+
+@section Scripts {
+    <script>
+        // Came from the Dashboard "Add Department" button (address ends with ?add=true):
+        // open the Add popup right away.
+        if (new URLSearchParams(window.location.search).get("add") === "true") {
+            openAddDepartmentModal();
+        }
+    </script>
+}

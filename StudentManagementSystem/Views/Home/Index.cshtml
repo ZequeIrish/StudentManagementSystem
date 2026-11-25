@@ -1,79 +1,108 @@
-﻿@{
-    ViewData["Title"] = "Home";
+﻿@using StudentManagementSystem.Models
+
+@{
+    ViewData["Title"] = "Dashboard";
+
+    // The 5 newest students, sent by HomeController (empty list if none).
+    var recentStudents = ViewBag.RecentStudents as List<Student> ?? new List<Student>();
 }
 
-<div class="home-container">
+<div class="sms-page-header">
+    <div class="sms-page-title">
+        <h1>Dashboard</h1>
+    </div>
+</div>
 
-    <!-- (The welcome text is now in the top bar of every page.) -->
+<!-- Totals -->
+<div class="sms-stat-grid">
 
-    <h2 class="section-title">System Overview</h2>
-
-
-    <!-- System Statistics -->
-    <div class="home-statistics">
-
-        <div class="stat-card">
-            <strong>Total Students</strong>
-            <span>@ViewBag.TotalStudents</span>
+    <a asp-controller="Students" asp-action="Index" class="sms-stat-card sms-stat-red">
+        <div>
+            <div class="sms-stat-label">Total Students</div>
+            <div class="sms-stat-value">@ViewBag.TotalStudents</div>
         </div>
+        <i class="bi bi-people"></i>
+    </a>
 
-        <div class="stat-card">
-            <strong>Total Courses</strong>
-            <span>@ViewBag.TotalCourses</span>
+    <a asp-controller="Courses" asp-action="Index" class="sms-stat-card sms-stat-black">
+        <div>
+            <div class="sms-stat-label">Courses</div>
+            <div class="sms-stat-value">@ViewBag.TotalCourses</div>
         </div>
+        <i class="bi bi-book"></i>
+    </a>
 
-        <div class="stat-card">
-            <strong>Total Departments</strong>
-            <span>@ViewBag.TotalDepartments</span>
+    <a asp-controller="Departments" asp-action="Index" class="sms-stat-card sms-stat-coral">
+        <div>
+            <div class="sms-stat-label">Departments</div>
+            <div class="sms-stat-value">@ViewBag.TotalDepartments</div>
         </div>
+        <i class="bi bi-building"></i>
+    </a>
 
+    <a asp-controller="Admins" asp-action="Index" class="sms-stat-card sms-stat-gray">
+        <div>
+            <div class="sms-stat-label">Admins</div>
+            <div class="sms-stat-value">@ViewBag.TotalAdmins</div>
+        </div>
+        <i class="bi bi-shield-lock"></i>
+    </a>
+
+</div>
+
+<!-- Quick actions -->
+<div class="sms-quick-actions">
+    <a asp-controller="Students" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add Student
+    </a>
+    <!-- "?add=true" makes the Courses / Departments page open its Add popup right away -->
+    <a asp-controller="Courses" asp-action="Index" asp-route-add="true" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add Course
+    </a>
+    <a asp-controller="Departments" asp-action="Index" asp-route-add="true" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add Department
+    </a>
+</div>
+
+<!-- Recently added students -->
+<div class="sms-panel">
+    <div class="sms-panel-header">
+        <h2>Recently Added Students</h2>
+        <a asp-controller="Students" asp-action="Index">View all</a>
     </div>
 
-
-    <h2 class="section-title">Manage System</h2>
-
-
-    <!-- Navigation -->
-    <div class="home-navigation">
-
-        <a asp-controller="Students"
-           asp-action="Index"
-           class="home-card">
-
-            <h2>Students</h2>
-
-            <p>
-                Manage student information
-            </p>
-
-        </a>
-
-
-        <a asp-controller="Courses"
-           asp-action="Index"
-           class="home-card">
-
-            <h2>Courses</h2>
-
-            <p>
-                Manage available courses
-            </p>
-
-        </a>
-
-
-        <a asp-controller="Departments"
-           asp-action="Index"
-           class="home-card">
-
-            <h2>Departments</h2>
-
-            <p>
-                Manage departments
-            </p>
-
-        </a>
-
-    </div>
-
+    @if (recentStudents.Count == 0)
+    {
+        <p class="sms-empty">
+            No students yet. <a asp-controller="Students" asp-action="Create">Add the first student</a>.
+        </p>
+    }
+    else
+    {
+        <table class="table table-hover sms-recent-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Department</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in recentStudents)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Students" asp-action="Details" asp-route-id="@student.StudentId">
+                                @student.FirstName @student.LastName
+                            </a>
+                        </td>
+                        <td>@student.Course</td>
+                        <td>@student.Department?.DepartmentName</td>
+                        <td>@student.Age</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

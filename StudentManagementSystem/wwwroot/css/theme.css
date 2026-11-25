@@ -374,6 +374,117 @@ body.sms-public {
     flex-wrap: nowrap;
 }
 
+/* ---------- Dashboard ---------- */
+
+.sms-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.sms-stat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px;
+    border: 1px solid #eeeeee;
+    border-left: 5px solid var(--sms-red);
+    border-radius: 10px;
+    background-color: var(--sms-card-bg);
+    color: var(--sms-text);
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+    .sms-stat-card:hover {
+        color: var(--sms-text);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .sms-stat-card i {
+        font-size: 2rem;
+    }
+
+.sms-stat-label {
+    font-size: 0.85rem;
+    color: var(--sms-muted);
+}
+
+.sms-stat-value {
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* each card gets its own theme color (left edge + icon) */
+.sms-stat-red { border-left-color: var(--sms-red); }
+.sms-stat-red i { color: var(--sms-red); }
+.sms-stat-black { border-left-color: var(--sms-black); }
+.sms-stat-black i { color: var(--sms-black); }
+.sms-stat-coral { border-left-color: var(--sms-active); }
+.sms-stat-coral i { color: var(--sms-active); }
+.sms-stat-gray { border-left-color: var(--sms-gray); }
+.sms-stat-gray i { color: var(--sms-gray); }
+
+.sms-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.sms-panel {
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    padding: 16px 18px;
+}
+
+.sms-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+    .sms-panel-header h2 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .sms-panel-header a,
+    .sms-recent-table a,
+    .sms-empty a {
+        color: var(--sms-red);
+    }
+
+.sms-content .sms-recent-table {
+    margin-bottom: 0;
+}
+
+    /* the recent list uses a light header instead of the red table header */
+    .sms-content .sms-recent-table thead th {
+        --bs-table-bg: #ffffff;
+        --bs-table-color: var(--sms-muted);
+        background-color: #ffffff;
+        color: var(--sms-muted);
+        font-size: 0.85rem;
+        border-color: #eeeeee;
+    }
+
+.sms-empty {
+    color: var(--sms-muted);
+    margin: 8px 0 0;
+}
+
+@media (max-width: 991.98px) {
+    .sms-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 /* ---------- Popups (Courses, Departments, Department Summary) ----------
    ".sms-content" in front makes these rules stronger than the older
    popup styles in site.css and on the Students page. */
