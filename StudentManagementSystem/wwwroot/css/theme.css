@@ -616,6 +616,23 @@ body.sms-public {
         margin-bottom: 0;
     }
 
+/* ---------- Button rows on form / details / delete pages ---------- */
+
+.sms-form-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.sms-warning-text {
+    color: var(--sms-red-dark);
+    background-color: #fdecea;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
 /* ---------- Add / Edit Student form: two columns ---------- */
 
 .sms-form-grid {
