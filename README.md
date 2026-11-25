@@ -137,7 +137,6 @@ StudentManagementSystem
 
 ## What's Planned
 
-- [ ] Lock an account for a short time after many wrong passwords
 - [ ] Link students to courses by ID (like departments), instead of by course name
 - [ ] Demo mode with sample data, for an online demo
 
