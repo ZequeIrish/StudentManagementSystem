@@ -1,7 +1,20 @@
 @model IEnumerable<StudentManagementSystem.Models.Student>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Students";
+
+    // What the user is searching and sorting by right now (empty = nothing / default).
+    var currentSearch = Context.Request.Query["searchString"].ToString();
+    var currentSort = Context.Request.Query["sortOrder"].ToString();
+
+    // Default sort (empty) is Last Name A-Z.
+    var isLastNameAscending = currentSort == "" || currentSort == "last_name";
+
+    // Small arrow next to the column that is being sorted.
+    string SortArrow(string sortKey) =>
+        (sortKey == "last_name" && isLastNameAscending) || (sortKey != "last_name" && currentSort == sortKey) ? " ▲"
+        : (sortKey == "last_name" && currentSort == "name_desc") ? " ▼"
+        : "";
 }
 
 <h1>Students</h1>
@@ -24,23 +37,42 @@
     </button>
 </div>
 
-<!-- search -->
-<form asp-action="Index" method="get">
-    <input type="text"
-           name="searchString"
-           value="@Context.Request.Query["searchString"]"
-           placeholder="Search student..." />
+<!-- search + sort -->
+<div class="sms-toolbar">
 
-    <button type="submit">Search</button>
+    <form asp-action="Index" method="get" class="sms-search">
+        <!-- keep the current sort when searching -->
+        <input type="hidden" name="sortOrder" value="@currentSort" />
 
-    <a asp-action="Index">Clear</a>
-</form>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text"
+                   name="searchString"
+                   value="@currentSearch"
+                   class="form-control"
+                   placeholder="Search name, course, address, department or age"
+                   aria-label="Search students" />
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a asp-action="Index" class="btn btn-secondary">Clear</a>
+        </div>
+    </form>
 
-<p>
-    Sort:
-    <a asp-action="Index" asp-route-sortOrder="">A-Z</a> |
-    <a asp-action="Index" asp-route-sortOrder="name_desc">Z-A</a>
-</p>
+    <div class="sms-sort">
+        <span class="sms-sort-label">Sort by last name:</span>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Sort by last name">
+            <!-- keep the current search when sorting -->
+            <a asp-action="Index"
+               asp-route-sortOrder=""
+               asp-route-searchString="@currentSearch"
+               class="btn @(isLastNameAscending ? "btn-primary" : "btn-outline-secondary")">A–Z</a>
+            <a asp-action="Index"
+               asp-route-sortOrder="name_desc"
+               asp-route-searchString="@currentSearch"
+               class="btn @(currentSort == "name_desc" ? "btn-primary" : "btn-outline-secondary")">Z–A</a>
+        </div>
+    </div>
+
+</div>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">
@@ -55,8 +87,8 @@
             <th>
                 <a asp-action="Index"
                    asp-route-sortOrder="first_name"
-                   asp-route-searchString="@Context.Request.Query["searchString"]">
-                    First Name
+                   asp-route-searchString="@currentSearch">
+                    First Name@(SortArrow("first_name"))
                 </a>
             </th>
 
@@ -66,8 +98,8 @@
             <th>
                 <a asp-action="Index"
                    asp-route-sortOrder="last_name"
-                   asp-route-searchString="@Context.Request.Query["searchString"]">
-                    Last Name
+                   asp-route-searchString="@currentSearch">
+                    Last Name@(SortArrow("last_name"))
                 </a>
             </th>
            
@@ -77,8 +109,8 @@
             <th>
                 <a asp-action="Index"
                    asp-route-sortOrder="course"
-                   asp-route-searchString="@Context.Request.Query["searchString"]">
-                    Course
+                   asp-route-searchString="@currentSearch">
+                    Course@(SortArrow("course"))
                 </a>
             </th>
             
@@ -91,8 +123,8 @@
             <th>
                 <a asp-action="Index"
                    asp-route-sortOrder="department"
-                   asp-route-searchString="@Context.Request.Query["searchString"]">
-                    Department
+                   asp-route-searchString="@currentSearch">
+                    Department@(SortArrow("department"))
                 </a>
             </th>
            

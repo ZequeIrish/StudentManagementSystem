@@ -6,66 +6,102 @@
     <title>@ViewData["Title"] - Student Management System</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StudentManagementSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
 </head>
-<body>
+
+@{
+    var isLoggedIn = User.Identity?.IsAuthenticated == true;
+    var adminName = User.Identity?.Name ?? "";
+    var avatarLetter = adminName.Length > 0 ? adminName.Substring(0, 1).ToUpper() : "?";
+
+    // Which menu item to highlight: the controller of the page being shown.
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    string ActiveFor(string controller, string? action = null) =>
+        controller == currentController && (action == null || action == currentAction) ? "active" : "";
+}
+
+<body class="@(isLoggedIn ? "sms-app" : "sms-public")">
     @Html.AntiForgeryToken()
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Student Management System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admins" asp-action="Index">Admins</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
 
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <form asp-controller="Account" asp-action="Logout" method="post" class="d-flex align-items-center gap-2">
-                            <span class="text-muted small">Logged in as <strong>@User.Identity.Name</strong></span>
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">Log out</button>
-                        </form>
-                    }
+    @if (isLoggedIn)
+    {
+        <div class="sms-shell">
+
+            <!-- Left sidebar menu -->
+            <aside class="sms-sidebar">
+                <a class="sms-brand" asp-controller="Home" asp-action="Index">Student Management System</a>
+
+                <nav class="sms-nav">
+                    <a class="sms-nav-link @ActiveFor("Home", "Index")" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                    <a class="sms-nav-link @ActiveFor("Students")" asp-controller="Students" asp-action="Index">
+                        <i class="bi bi-people"></i> Students
+                    </a>
+                    <a class="sms-nav-link @ActiveFor("Courses")" asp-controller="Courses" asp-action="Index">
+                        <i class="bi bi-book"></i> Courses
+                    </a>
+                    <a class="sms-nav-link @ActiveFor("Departments")" asp-controller="Departments" asp-action="Index">
+                        <i class="bi bi-building"></i> Departments
+                    </a>
+                    <a class="sms-nav-link @ActiveFor("Admins")" asp-controller="Admins" asp-action="Index">
+                        <i class="bi bi-shield-lock"></i> Admins
+                    </a>
+                </nav>
+
+                <div class="sms-sidebar-bottom">
+                    <a class="sms-nav-link @ActiveFor("Home", "Privacy")" asp-controller="Home" asp-action="Privacy">
+                        <i class="bi bi-info-circle"></i> Privacy
+                    </a>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="sms-nav-link sms-logout">
+                            <i class="bi bi-box-arrow-left"></i> Log out
+                        </button>
+                    </form>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            </aside>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Student Management System -<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <!-- Right side: welcome bar + page content -->
+            <div class="sms-main">
+                <header class="sms-topbar">
+                    <div>
+                        <div class="sms-topbar-title">Welcome to Student Management System</div>
+                        <div class="sms-topbar-subtitle">Manage students, courses, and departments in one place</div>
+                    </div>
+                    <div class="sms-user">
+                        <div class="text-end">
+                            <div class="sms-user-name">@adminName</div>
+                            <div class="sms-user-role">Admin</div>
+                        </div>
+                        <div class="sms-avatar">@avatarLetter</div>
+                    </div>
+                </header>
+
+                <main role="main" class="sms-content">
+                    @RenderBody()
+                </main>
+
+                <footer class="sms-footer">
+                    &copy; 2026 Student Management System
+                </footer>
+            </div>
         </div>
-    </footer>
+    }
+    else
+    {
+        <!-- Not logged in (Login / Setup): just the form, centered, no menu -->
+        <main role="main" class="sms-public-main">
+            <div class="sms-public-brand">Student Management System</div>
+            <div class="sms-public-card">
+                @RenderBody()
+            </div>
+        </main>
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
