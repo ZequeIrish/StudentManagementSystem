@@ -59,7 +59,7 @@ StudentManagementSystem
 - [x] Course and Department CRUD operations
 - [x] Input validation and error handling
 - [x] Search and filtering
-- [x] Basic authentication
+- [ ] Basic authentication
 
 ## What's Planned
 

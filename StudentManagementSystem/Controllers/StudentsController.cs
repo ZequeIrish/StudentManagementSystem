@@ -80,11 +80,16 @@ public class StudentsController : Controller
             ViewBag.DepartmentSummary = departmentSummary;
 
 
-        //Average Age
-        ViewBag.AverageAge = Math.Round(await _context.Students
-        .AverageAsync(s => s.Age ?? 0));
+       
+        // Average Age (null when there are no students)
+        double? averageAge = await _context.Students
+            .AverageAsync(s => (double?)s.Age);
 
-            return View(await students.ToListAsync());
+        ViewBag.AverageAge = averageAge.HasValue
+            ? Math.Round(averageAge.Value).ToString()
+            : "N/A";
+
+        return View(await students.ToListAsync());
     }
 
 
@@ -154,9 +159,11 @@ public class StudentsController : Controller
         }
 
         ViewBag.Departments = await _context.Departments.ToListAsync();
+        ViewBag.Courses = await _context.Courses.ToListAsync();
 
         return View(student);
-    }
+    
+}
 
     // GET: STUDENTS/Edit/5
     public async Task<IActionResult> Edit(int? id)

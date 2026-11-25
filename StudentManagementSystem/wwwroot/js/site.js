@@ -2,6 +2,11 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+// Reads the security token the server puts on every page (see _Layout.cshtml).
+function getAntiForgeryToken() {
+    const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+    return tokenInput ? tokenInput.value : "";
+}
 
 
 
@@ -35,7 +40,8 @@ async function addCourse() {
             method: "POST",
 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
             },
 
             body: JSON.stringify({
@@ -98,7 +104,8 @@ async function updateCourse() {
             method: "POST",
 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
             },
 
             body: JSON.stringify({
@@ -199,7 +206,10 @@ async function deleteCourse() {
         const response = await fetch(
             `/Courses/DeleteCourse/${courseId}`,
             {
-                method: "POST"
+                method: "POST",
+                headers: {
+                    "RequestVerificationToken": getAntiForgeryToken()
+                }
             }
         );
 
@@ -251,7 +261,8 @@ async function addDepartment() {
             method: "POST",
 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
             },
 
             body: JSON.stringify({
@@ -312,7 +323,8 @@ async function updateDepartment() {
             method: "POST",
 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
             },
 
             body: JSON.stringify({
@@ -396,7 +408,12 @@ async function deleteDepartment() {
         const response = await fetch(
             `/Departments/DeleteDepartment/${departmentId}`,
             {
-                method: "POST"
+               
+                method: "POST",
+                headers: {
+                    "RequestVerificationToken": getAntiForgeryToken()
+                }
+              
             }
         );
 

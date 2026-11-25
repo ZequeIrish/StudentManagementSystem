@@ -6,20 +6,28 @@ namespace StudentManagementSystem.Models;
 
 public partial class Student
 {
+    // Letters (including accented letters like ñ and é), spaces, apostrophes, hyphens and periods.
+    // The first character must be a letter.
+    private const string NamePattern =
+        @"^[A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F][A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\s'.\-]*$";
+
+    private const string NameRuleMessage =
+        "can only contain letters, spaces, apostrophes ('), hyphens (-) and periods (.).";
+
     public int StudentId { get; set; }
 
     [Required(ErrorMessage = "First Name is required.")]
     [StringLength(50)]
-    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "First Name can only contain letters.")]
+    [RegularExpression(NamePattern, ErrorMessage = "First Name " + NameRuleMessage)]
     public string? FirstName { get; set; }
 
     [StringLength(50)]
-    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Middle Name can only contain letters.")]
+    [RegularExpression(NamePattern, ErrorMessage = "Middle Name " + NameRuleMessage)]
     public string? MiddleName { get; set; }
 
     [Required(ErrorMessage = "Last Name is required.")]
     [StringLength(50)]
-    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Last Name can only contain letters.")]
+    [RegularExpression(NamePattern, ErrorMessage = "Last Name " + NameRuleMessage)]
     public string? LastName { get; set; }
 
     [Required(ErrorMessage = "Age is required.")]

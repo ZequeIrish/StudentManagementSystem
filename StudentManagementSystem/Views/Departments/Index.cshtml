@@ -42,19 +42,25 @@
                     <td>
                         <button type="button"
                                 class="btn btn-sm btn-info"
-                                onclick="openDepartmentDetailsModal(@department.DepartmentId, '@department.DepartmentName')">
+                                data-department-id="@department.DepartmentId"
+                                data-department-name="@department.DepartmentName"
+                                onclick="openDepartmentDetailsModal(this.dataset.departmentId, this.dataset.departmentName)">
                             Details
                         </button>
                         |
                         <button type="button"
                                 class="btn btn-sm btn-warning"
-                                onclick="openEditDepartmentModal(@department.DepartmentId, '@department.DepartmentName')">
+                                data-department-id="@department.DepartmentId"
+                                data-department-name="@department.DepartmentName"
+                                onclick="openEditDepartmentModal(this.dataset.departmentId, this.dataset.departmentName)">
                             Edit
                         </button>
                         |
                         <button type="button"
                                 class="btn btn-sm btn-danger"
-                                onclick="openDeleteDepartmentModal(@department.DepartmentId, '@department.DepartmentName')">
+                                data-department-id="@department.DepartmentId"
+                                data-department-name="@department.DepartmentName"
+                                onclick="openDeleteDepartmentModal(this.dataset.departmentId, this.dataset.departmentName)">
                             Delete
                         </button>
                     </td>
@@ -266,3 +272,4 @@
     </div>
 
 </div>
+

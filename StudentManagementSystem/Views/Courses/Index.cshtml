@@ -52,7 +52,9 @@
                 <td>
                     <button type="button"
                             class="btn btn-sm btn-warning"
-                            onclick="openEditCourseModal(@course.CourseId, '@course.CourseName')">
+                            data-course-id="@course.CourseId"
+                            data-course-name="@course.CourseName"
+                            onclick="openEditCourseModal(this.dataset.courseId, this.dataset.courseName)">
                         Edit
                     </button>
 
@@ -60,7 +62,9 @@
 
                     <button type="button"
                             class="btn btn-sm btn-info"
-                            onclick="openCourseDetailsModal(@course.CourseId, '@course.CourseName')">
+                            data-course-id="@course.CourseId"
+                            data-course-name="@course.CourseName"
+                            onclick="openCourseDetailsModal(this.dataset.courseId, this.dataset.courseName)">
                         Details
                     </button>
 
@@ -68,7 +72,9 @@
 
                     <button type="button"
                             class="btn btn-sm btn-danger"
-                            onclick="openDeleteCourseModal(@course.CourseId, '@course.CourseName')">
+                            data-course-id="@course.CourseId"
+                            data-course-name="@course.CourseName"
+                            onclick="openDeleteCourseModal(this.dataset.courseId, this.dataset.courseName)">
                         Delete
                     </button>
                 </td>

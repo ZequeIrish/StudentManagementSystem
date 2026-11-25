@@ -189,8 +189,9 @@
 
                     <button type="button"
                             class="btn btn-sm btn-primary"
-                            onclick="viewDepartment(@department.DepartmentId, '@department.DepartmentName')">
-                        >
+                            data-department-id="@department.DepartmentId"
+                            data-department-name="@department.DepartmentName"
+                            onclick="viewDepartment(this.dataset.departmentId, this.dataset.departmentName)">
                         View
                     </button>
 
@@ -474,80 +475,64 @@
 
 
      /* Student modal */
+
+    // Shows one message row (Loading / No students / Error) across the whole table.
+    function showDepartmentMessage(tableBody, message) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 7;
+        cell.className = "department-student-empty";
+        cell.textContent = message;
+        row.appendChild(cell);
+        tableBody.replaceChildren(row);
+    }
+
     async function viewDepartment(departmentId, departmentName) {
 
-        // Close Department Summary
+        // Close Department Summary, set the title, open the Students popup
         document.getElementById("departmentSummaryModal").style.display = "none";
-
-        // Set modal title
-        document.getElementById("departmentStudentsTitle").innerText =
-            departmentName + " Students";
-
-        // Open Student Modal
+        document.getElementById("departmentStudentsTitle").textContent = departmentName + " Students";
         document.getElementById("departmentStudentsModal").style.display = "block";
 
-        // Get the table body
-        const tableBody =
-            document.getElementById("departmentStudentsTableBody");
-
-        // Show loading message
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="7">Loading students...</td>
-            </tr>
-        `;
+        const tableBody = document.getElementById("departmentStudentsTableBody");
+        showDepartmentMessage(tableBody, "Loading students...");
 
         try {
+            const response = await fetch(`/Students/DepartmentStudents/${departmentId}`);
 
-            const response = await fetch(
-                `/Students/DepartmentStudents/${departmentId}`
-            );
+            if (!response.ok) {
+                throw new Error("Server answered with status " + response.status);
+            }
 
             const students = await response.json();
 
-            tableBody.innerHTML = "";
-
             if (students.length === 0) {
-
-                tableBody.innerHTML = `
-                    <tr>
-                           <td colspan="7" class="department-student-empty">
-                                No students found in this department.
-                           </td>
-                    </tr>
-                `;
-
+                showDepartmentMessage(tableBody, "No students found in this department.");
                 return;
             }
 
+            tableBody.replaceChildren();   // empty the table
+
             students.forEach(student => {
+                const row = document.createElement("tr");
 
-                const row = `
-                    <tr>
-                        <td>${student.firstName ?? ""}</td>
-                        <td>${student.middleName ?? ""}</td>
-                        <td>${student.lastName ?? ""}</td>
-                        <td>${student.age ?? ""}</td>
-                        <td>${student.course ?? ""}</td>
-                        <td>${student.address ?? ""}</td>
-                        <td>${student.department ?? ""}</td>
-                    </tr>
-                `;
+                const values = [
+                    student.firstName, student.middleName, student.lastName,
+                    student.age, student.course, student.address, student.department
+                ];
 
-                tableBody.innerHTML += row;
+                values.forEach(value => {
+                    const cell = document.createElement("td");
+                    cell.textContent = value ?? "";   // plain text only, never run as code
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
             });
 
         } catch (error) {
-
             console.error(error);
-
-            tableBody.innerHTML = `
-                <tr>
-                       <td colspan="7" class="department-student-empty">
-                            Error loading students.
-                       </td>
-                </tr>
-            `;
+            showDepartmentMessage(tableBody, "Error loading students.");
         }
     }
 
