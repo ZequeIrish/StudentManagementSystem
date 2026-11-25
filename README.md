@@ -89,11 +89,16 @@ StudentManagementSystem
 - [x] Admin management: add and remove admin accounts
 - [x] Passwords stored as one-way hashes, never as plain text
 - [x] Protection against forged requests (anti-forgery tokens) and against code hidden in names or addresses (XSS)
+- [x] Visual design: black sidebar menu, red accent theme, and a welcome bar on every page
+- [x] Dashboard with total counts, quick "Add" buttons, and the 5 most recently added students
+- [x] Every page fits the screen; long tables scroll inside their own box (phones scroll normally)
+- [x] Consistent buttons on all pages: Edit (black), Details (gray), Delete (red), Back to List
+- [x] Styled popups for adding, editing, viewing, and deleting courses and departments
 
 ## What's Planned
 
-- [ ] Visual design and styling (CSS, layout, overall UI polish)
 - [ ] Screenshots of the main pages in this README
+- [ ] Prevent duplicate course and department names
 - [ ] Change password for admins
 - [ ] Lock an account for a short time after many wrong passwords
 - [ ] Link students to courses by ID (like departments), instead of by course name
