@@ -374,6 +374,137 @@ body.sms-public {
     flex-wrap: nowrap;
 }
 
+/* ---------- Popups (Courses, Departments, Department Summary) ----------
+   ".sms-content" in front makes these rules stronger than the older
+   popup styles in site.css and on the Students page. */
+
+@keyframes sms-popup-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -46%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* dark see-through background behind the popup */
+.sms-content .course-modal,
+.sms-content .department-modal,
+.sms-content .department-students-modal {
+    background-color: rgba(17, 17, 17, 0.55);
+}
+
+/* the popup card */
+.sms-content .course-modal-content,
+.sms-content .department-modal-content,
+.sms-content .department-students-content {
+    border: none;
+    border-top: 4px solid var(--sms-red);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    animation: sms-popup-in 0.18s ease-out;
+}
+
+/* popup title row */
+.sms-content .course-modal-header,
+.sms-content .department-modal-header,
+.sms-content .department-students-header {
+    padding: 16px 20px;
+    margin: 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+    .sms-content .course-modal-header h2,
+    .sms-content .department-modal-header h2,
+    .sms-content .department-modal-header h3,
+    .sms-content .department-students-header h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+/* close (x) button */
+.sms-content .close-button {
+    border: none;
+    background: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--sms-muted);
+    padding: 0 4px;
+}
+
+    .sms-content .close-button:hover {
+        color: var(--sms-red);
+    }
+
+/* popup body and button row */
+.sms-content .course-modal-body,
+.sms-content .department-modal-body {
+    padding: 20px;
+}
+
+    .sms-content .course-modal-body label,
+    .sms-content .department-modal-body label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+
+    .sms-content .course-modal-body p,
+    .sms-content .department-modal-body p {
+        margin-bottom: 8px;
+    }
+
+.sms-content .course-modal-footer,
+.sms-content .department-modal-footer {
+    padding: 12px 20px;
+    background-color: #fafafa;
+    border-top: 1px solid #eeeeee;
+    border-radius: 0 0 12px 12px;
+}
+
+/* Department Summary popup (Students page) */
+.sms-content #departmentSummaryModal .department-modal-content {
+    padding: 0;
+    width: 420px;
+    max-width: 92%;
+}
+
+.sms-content .department-list {
+    padding: 16px 20px;
+    max-height: 60vh;
+}
+
+.sms-content .department-item {
+    border: 1px solid #eeeeee;
+    border-left: 4px solid var(--sms-active);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+}
+
+    .sms-content .department-item:hover {
+        background-color: #fff7f6;
+    }
+
+/* students-per-department popup (Students page) */
+.sms-content .department-students-content {
+    padding: 0;
+}
+
+.sms-content .department-student-table-container {
+    margin: 16px 20px 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+}
+
+    .sms-content .department-student-table-container table {
+        margin-bottom: 0;
+    }
+
 /* ---------- Add / Edit Student form: two columns ---------- */
 
 .sms-form-grid {
